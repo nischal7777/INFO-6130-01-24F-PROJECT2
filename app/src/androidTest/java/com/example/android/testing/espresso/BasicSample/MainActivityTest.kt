@@ -46,4 +46,34 @@ class MainActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.TextToBeChanged))
             .check(ViewAssertions.matches(ViewMatchers.withText("")))
     }
+    
+    @Test
+    fun testEmptyInputOpenActivity() {
+        Espresso.onView(ViewMatchers.withId(R.id.editUserTextInput))
+            .perform(ViewActions.clearText(), ViewActions.closeSoftKeyboard())
+        Espresso.onView(ViewMatchers.withId(R.id.activityChangeTextBtn)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.show_text_view))
+            .check(ViewAssertions.matches(ViewMatchers.withText("")))
+    }
+
+
+    @Test
+    fun testChangeTextToAbcdef() {
+        Espresso.onView(ViewMatchers.withId(R.id.editUserTextInput))
+            .perform(ViewActions.typeText("abcdef"), ViewActions.closeSoftKeyboard())
+        Espresso.onView(ViewMatchers.withId(R.id.TextChangeButton)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.TextToBeChanged))
+            .check(ViewAssertions.matches(ViewMatchers.withText("abcdef")))
+    }
+
+
+    @Test
+    fun testOpenActivityAndChangeTextToAbcdef() {
+        Espresso.onView(ViewMatchers.withId(R.id.editUserTextInput))
+            .perform(ViewActions.typeText("abcdef"), ViewActions.closeSoftKeyboard())
+        Espresso.onView(ViewMatchers.withId(R.id.activityChangeTextBtn)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.show_text_view))
+            .check(ViewAssertions.matches(ViewMatchers.withText("abcdef")))
+    }
+
 }
